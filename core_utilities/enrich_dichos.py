@@ -20,7 +20,15 @@ def clean_dicho_for_enrichment(dicho):
 def enrich_dicho_with_llm(dicho):
     """
     Simulate LLM enrichment of a dicho
-    In a real implementation, this would call an LLM API
+    
+    ⚠️  IMPORTANT: This is a SIMULATION for demonstration purposes.
+    In a real implementation, this function should:
+    1. Call an LLM API (GPT-4, Claude, etc.)
+    2. Send the dicho text to the LLM
+    3. Request specific enrichments (translation, context, keywords, etc.)
+    4. Parse the LLM response and return structured data
+    
+    The current implementation uses hardcoded dictionaries as a fallback.
     """
     cleaned = clean_dicho_for_enrichment(dicho)
     

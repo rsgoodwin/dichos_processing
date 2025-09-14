@@ -91,9 +91,13 @@ cat documentation/ENHANCED_CLUSTERS_SUMMARY.md
 - **`process_new_whatsapp_dichos.py`**: Complete pipeline for new WhatsApp dichos
 - **`core_utilities/parse_whatsapp_chat.py`**: WhatsApp chat parsing
 - **`core_utilities/process_dichos.py`**: Dicho cleaning and duplicate detection
-- **`core_utilities/enrich_dichos.py`**: LLM enrichment and metadata
+- **`core_utilities/enrich_dichos.py`**: LLM enrichment and metadata (⚠️ requires external LLM)
 - **`core_utilities/insert_dichos.py`**: Database insertion with relationships
 - **`core_algorithms/nlp_semantic_clustering.py`**: Reclustering with new data
+
+### **⚠️ Important: LLM Workflow**
+The enrichment step requires **external LLM interaction** and cannot run locally.
+See `documentation/LLM_WORKFLOW_GUIDE.md` for complete workflow details.
 
 ---
 
