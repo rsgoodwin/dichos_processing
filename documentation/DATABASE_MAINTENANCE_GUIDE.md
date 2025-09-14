@@ -34,21 +34,62 @@ WhatsApp Dump → Parse & Extract → Filter New → LLM Analysis → Enrich Dat
 ### **Objective:** Extract datetime, contributor, and text from new WhatsApp chat export
 
 ### **Process:**
-1. **Obtain new WhatsApp export** (text format)
-2. **Parse each line** to extract:
-   - `date_time`: Timestamp of message
-   - `contributor_first`: First name of sender
-   - `contributor_last`: Last name of sender (if available)
-   - `text`: Full message content
+1. **Obtain new WhatsApp export** (text format) - typically named `WhatsApp Chat with [Group Name].txt`
+2. **Use the WhatsApp parser script**: `core_utilities/parse_whatsapp_chat.py`
+3. **Parse each line** to extract:
+   - `date_time`: Timestamp of message (M/D/YY H:MM AM/PM format)
+   - `contributor`: Sender name or phone number
+   - `text`: Full message content (including continuation lines)
 
-### **Expected Format:**
+### **WhatsApp Export Format:**
 ```
-8/17/25 4:58 PM - Javier Soto: No se haga la barba en seco.
-8/17/25 5:02 PM - Maria Rodriguez: That's a good one!
-8/17/25 5:15 PM - Carlos Mendez: El que mucho abarca, poco aprieta.
+8/17/25, 4:48 PM - Javier Soto: Ahi poco a poco añado mas gente.  Hoy hablaba con Randall de los dichos costarricenses y le decía que tenia la misma idea.  Asi que pongan los dichos q se sepan.  Si saben de donde vienen y un ejemplo de como se usa.
+8/17/25, 4:58 PM - Javier Soto: Y recuerdense:  no se haga la barba en seco.
+8/17/25, 6:11 PM - Maria Goodwin: A palabras necias, oidos sordos
 ```
 
-### **Output:** CSV or structured data with parsed fields
+### **Special Considerations:**
+- **Continuation lines**: Lines not starting with dates are continuations of previous messages
+- **System messages**: Skip lines containing "created group", "added", "changed", etc.
+- **Unicode characters**: Handle special characters between time and AM/PM
+- **Encoding**: Use UTF-8 with error handling
+
+### **Parser Script Usage:**
+```bash
+# Activate virtual environment
+source venv/bin/activate
+
+# Run the parser
+python3 core_utilities/parse_whatsapp_chat.py
+```
+
+### **Output:** 
+- **Console summary** of parsing results
+- **CSV file**: `new_whatsapp_messages.csv` with columns: `line_num`, `date_time`, `contributor`, `text`
+- **Filtered messages**: Only messages newer than the most recent date in the database
+
+### **Example Output:**
+```
+🚀 WhatsApp Chat Parser for Dichos Processing
+==================================================
+📱 Parsing WhatsApp chat export...
+✅ Parsed 53 messages
+📅 Database cutoff date: 8/23/25 6:56 AM
+🔍 Filtering messages newer than: 8/23/25 6:56 AM
+✅ Found 53 new messages after 8/23/25 6:56 AM
+
+📊 NEW MESSAGES SUMMARY:
+   Total new messages: 53
+   Date range: 8/23/25 08:18 AM to 8/29/25 02:38 PM
+   Contributors: 8
+💾 Saved new messages to: new_whatsapp_messages.csv
+```
+
+### **File Organization:**
+- **Parser script**: `core_utilities/parse_whatsapp_chat.py`
+- **Input file**: `WhatsApp Chat with [Group Name].txt` (place in project root)
+- **Output file**: `new_whatsapp_messages.csv` (generated in project root)
+- **Database**: `core_data/dichos_normalized.db`
 
 ---
 
@@ -318,3 +359,18 @@ pip install sentence-transformers pandas sqlite3 numpy plotly
 ---
 
 *This guide should be used in conjunction with the current database schema and clustering system. Always backup the database before making changes and test thoroughly in a development environment first.*
+
+### **Parser Script Usage:**
+```bash
+# Activate virtual environment
+source venv/bin/activate
+
+# Run the parser
+python3 core_utilities/parse_whatsapp_chat.py
+```
+
+### **File Organization:**
+- **Parser script**: `core_utilities/parse_whatsapp_chat.py`
+- **Input file**: `WhatsApp Chat with [Group Name].txt` (place in project root)
+- **Output file**: `new_whatsapp_messages.csv` (generated in project root)
+- **Database**: `core_data/dichos_normalized.db`

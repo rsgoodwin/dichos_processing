@@ -14,7 +14,11 @@ dichos_processing/
 │   └── data/                        # Original data sources
 │       └── dichos_enhanced_batches.tsv
 ├── 🔧 core_utilities/               # Essential utilities
-│   └── database_utils.py            # Database interaction utilities
+│   ├── database_utils.py            # Database interaction utilities
+│   ├── parse_whatsapp_chat.py      # WhatsApp chat export parser
+│   ├── process_dichos.py            # Dicho processing and duplicate detection
+│   ├── enrich_dichos.py             # LLM enrichment and metadata generation
+│   └── insert_dichos.py             # Database insertion with relationships
 ├── 📋 requirements.txt               # Python package dependencies
 ├── 🧠 core_algorithms/              # Core NLP and clustering algorithms
 │   ├── nlp_semantic_clustering.py   # Main clustering algorithm
@@ -84,9 +88,12 @@ cat documentation/ENHANCED_CLUSTERS_SUMMARY.md
 3. **Update database**: Via utilities in `core_utilities/`
 
 ### **Key Maintenance Scripts:**
+- **`process_new_whatsapp_dichos.py`**: Complete pipeline for new WhatsApp dichos
+- **`core_utilities/parse_whatsapp_chat.py`**: WhatsApp chat parsing
+- **`core_utilities/process_dichos.py`**: Dicho cleaning and duplicate detection
+- **`core_utilities/enrich_dichos.py`**: LLM enrichment and metadata
+- **`core_utilities/insert_dichos.py`**: Database insertion with relationships
 - **`core_algorithms/nlp_semantic_clustering.py`**: Reclustering with new data
-- **`core_algorithms/multi_cluster_assignment_method.py`**: Cluster assignments
-- **`core_utilities/database_utils.py`**: Database operations
 
 ---
 

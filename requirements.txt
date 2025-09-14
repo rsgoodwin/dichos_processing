@@ -1,7 +1,25 @@
-# Minimal requirements for dichos analysis
+# Complete requirements for dichos processing system (CPU-only)
 pandas>=2.3.0
-jupyter>=1.1.0
-plotly>=6.3.0
-scikit-learn>=1.7.0
 numpy>=2.3.0
+scikit-learn>=1.7.0
+plotly>=6.3.0
+jupyter>=1.1.0
+
+# Core NLP packages
+sentence-transformers>=2.5.0
+umap-learn>=0.5.0
+
+# PyTorch (CPU-only version - no CUDA required)
+# Install with: pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch>=2.8.0
+
+# Database and utilities (built-in with Python)
+# sqlite3, json
+
+# Optional but recommended
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Note: This system works entirely on CPU - no GPU required
+# sentence-transformers will automatically use CPU for inference
 
